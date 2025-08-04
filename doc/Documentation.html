@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2arr Archiver - open-cherry-org</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>2arr Archiver</h1>
+            <p class="version">Version 1.0 | Copyright © open-cherry-org</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p>A lightweight file archiver utility written in C with simple packing/unpacking capabilities.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📦</span>
+                    <h3>Create Archives</h3>
+                    <p>Pack files and directories into .2arr format</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📂</span>
+                    <h3>Extract Archives</h3>
+                    <p>Unpack .2arr files with directory structure</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3>List Contents</h3>
+                    <p>View archive contents without extraction</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="installation">
+            <h2>Installation</h2>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="linux">Linux/macOS</button>
+                <button class="tab-btn" data-tab="windows">Windows</button>
+            </div>
+            
+            <div class="tab-content active" id="linux">
+                <pre><code>gcc 2arr.c -o 2arr
+sudo mv 2arr /usr/local/bin/</code></pre>
+            </div>
+            
+            <div class="tab-content" id="windows">
+                <pre><code>gcc 2arr.c -o 2arr.exe</code></pre>
+            </div>
+        </section>
+
+        <section class="usage">
+            <h2>Usage</h2>
+            <div class="command-box">
+                <code>2arr [OPTION] ARCHIVE_NAME [FILES...]</code>
+            </div>
+            
+            <table class="options-table">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-p</code></td>
+                        <td>Pack files into archive</td>
+                    </tr>
+                    <tr>
+                        <td><code>-u</code></td>
+                        <td>Unpack archive</td>
+                    </tr>
+                    <tr>
+                        <td><code>-l</code></td>
+                        <td>List archive contents</td>
+                    </tr>
+                    <tr>
+                        <td><code>-h</code></td>
+                        <td>Show help message</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="examples">
+            <h2>Examples</h2>
+            <div class="example-card">
+                <h3>Pack files</h3>
+                <pre><code>2arr -p docs.2arr report.txt images/ src/</code></pre>
+                <p>Outputs: <code>./docs.2arr</code></p>
+            </div>
+            
+            <div class="example-card">
+                <h3>Unpack archive</h3>
+                <pre><code>2arr -u backup.2arr</code></pre>
+                <p>Outputs: <code>Unpacked to backup/ successfully</code></p>
+            </div>
+            
+            <div class="example-card">
+                <h3>List contents</h3>
+                <pre><code>2arr -l project.2arr</code></pre>
+                <p>Outputs directory listing</p>
+            </div>
+        </section>
+
+        <section class="specs">
+            <h2>Archive Format Specification</h2>
+            <pre class="format-spec">
+[D|F]path\n
+[filesize\n]?  ← Only for files
+[file data]?   ← Only for files</pre>
+            <ul class="spec-list">
+                <li>Directories marked with <code>D</code> prefix</li>
+                <li>Files marked with <code>F</code> prefix + size</li>
+                <li>All paths stored relative to archive root</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>2arr Archiver is released under MIT License</p>
+            <p>© 2023 open-cherry-org</p>
+        </div>
+    </footer>
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
